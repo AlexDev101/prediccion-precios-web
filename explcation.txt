@@ -1,8 +1,3 @@
-Perfecto 👍
-Esto es **justo la parte teórica** que suele valer muchos puntos. Te dejo **TODO hecho**, listo para pegar en la memoria (y adaptarlo si quieres).
-
----
-
 # 📊 Tabla comparativa de métricas
 
 Tras entrenar y evaluar distintos modelos de Machine Learning para la predicción del precio de vehículos BMW, se obtuvieron las siguientes métricas sobre el conjunto de prueba:
@@ -48,6 +43,34 @@ En consecuencia, el modelo Random Forest representa el mejor equilibrio entre pr
 
 ---
 
-## 🏁 Conclusión final (opcional, pero muy buena)
+# 🚗 Predicción de precios de vehículos BMW
+
+Aplicación web desarrollada con **Streamlit** que permite predecir el precio de vehículos BMW a partir de sus características, utilizando un modelo de **Machine Learning** entrenado con datos históricos reales.
+
+El proyecto cubre todo el flujo:
+- Preparación de datos
+- Entrenamiento del modelo
+- Evaluación con métricas
+- Despliegue en una aplicación web interactiva
+
+---
+
+## 📁 Estructura del proyecto
+
+```text
+prediccion-precios-web/
+│
+├── app.py                  # Aplicación web con Streamlit
+├── requirements.txt        # Dependencias del proyecto
+├── README.md               # Documentación del proyecto
+│
+├── data/
+│   └── bmw.csv              # Dataset original
+│
+├── models/
+│   └── modelo_precio_bmw.pkl # Modelo entrenado (scikit-learn)
+│
+└── .gitignore              # Archivos ignorados por Git
+
 
 > *El uso de modelos de ensemble permitió mejorar significativamente la precisión de las predicciones, siendo Random Forest el modelo que ofreció los mejores resultados globales, por lo que fue seleccionado para su despliegue en la aplicación web.*
