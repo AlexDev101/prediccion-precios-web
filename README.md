@@ -54,24 +54,4 @@ El proyecto cubre todo el flujo:
 - Evaluación con métricas
 - Despliegue en una aplicación web interactiva
 
----
-
-## Estructura del proyecto
-
-prediccion-precios-web/
-│
-├── app.py                  # Aplicación web con Streamlit
-├── requirements.txt        # Dependencias del proyecto
-├── README.md               # Documentación del proyecto
-│
-├── data/
-│   └── bmw.csv              # Dataset original
-│
-├── models/
-│   └── modelo_precio_bmw.pkl # Modelo entrenado (scikit-learn)
-├── train_test.py            # Entrenamientos de los modelos 
-│
-└── .gitignore              # Archivos ignorados por Git
-
-
 > El uso de modelos de ensemble permitió mejorar significativamente la precisión de las predicciones, siendo Random Forest el modelo que ofreció los mejores resultados globales, por lo que fue seleccionado para su despliegue en la aplicación web.
