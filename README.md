@@ -1,3 +1,20 @@
+# Predicción de precios de vehículos BMW
+
+Aplicación web desarrollada con Streamlit que permite predecir el precio de vehículos BMW a partir de sus características, utilizando un modelo de Machine Learning entrenado con datos históricos reales.
+
+El flujo de que ha seguido el modelo ML para ser implementado en la web:
+- Preparación de datos
+- Entrenamiento del modelo
+- Evaluación con métricas
+- Selección del modelo más eficiente
+
+Desarrollo de la App Web
+- Desarrollo del Front-End y Back-End con Streamlit
+- Implementación del modelo ML dentro de la App
+- Despliegue en una aplicación web interactiva en la nube, Stream Cloud
+
+> El uso de modelos de ensemble permitió mejorar significativamente la precisión de las predicciones, siendo Random Forest el modelo que ofreció los mejores resultados globales, por lo que fue seleccionado para su despliegue en la aplicación web.
+
 Ver la app en la nube: https://prediccion-precios-web-gdnhtgdgkx5fx3qmrr9zzn.streamlit.app/
 
 # Tabla comparativa de métricas
@@ -44,14 +61,18 @@ En consecuencia, el modelo Random Forest representa el mejor equilibrio entre pr
 
 ---
 
-# Predicción de precios de vehículos BMW
+# Ejecución del proyecto en local
+Clonacnioón del repositorio
+  git clone http://github.com/AlexDev101/prediccion_precios_web.git
 
-Aplicación web desarrollada con Streamlit que permite predecir el precio de vehículos BMW a partir de sus características, utilizando un modelo de Machine Learning entrenado con datos históricos reales.
+Accedemos a la carpeta del proyecto
+  cd prediccion_precios_web
 
-El proyecto cubre todo el flujo:
-- Preparación de datos
-- Entrenamiento del model
-- Evaluación con métricas
-- Despliegue en una aplicación web interactiva
+Instalamos las herramientas necesarias con requeriments.txt
+  pip install requeriments.txt
 
-> El uso de modelos de ensemble permitió mejorar significativamente la precisión de las predicciones, siendo Random Forest el modelo que ofreció los mejores resultados globales, por lo que fue seleccionado para su despliegue en la aplicación web.
+Instalamos Streamlit para poder levantar la app
+  pip install streamlit
+
+Por último levantamos el proyecto
+  streamlit run app.py
