@@ -1,6 +1,6 @@
 Ver la app en la nube: https://prediccion-precios-web-gdnhtgdgkx5fx3qmrr9zzn.streamlit.app/
 
-# 📊 Tabla comparativa de métricas
+# Tabla comparativa de métricas
 
 Tras entrenar y evaluar distintos modelos de Machine Learning para la predicción del precio de vehículos BMW, se obtuvieron las siguientes métricas sobre el conjunto de prueba:
 
@@ -9,7 +9,6 @@ Tras entrenar y evaluar distintos modelos de Machine Learning para la predicció
 | Regresión Lineal  | ~3.200  | ~18.5 M  | 0.82 |
 | Árbol de Decisión | ~2.900  | ~16.2 M  | 0.85 |
 | Random Forest     | ~2.100  | ~9.8 M   | 0.91 |
-| Gradient Boosting | ~2.250  | ~10.5 M  | 0.90 |
 
 Descripción de las métricas:
 
@@ -19,7 +18,7 @@ Descripción de las métricas:
 
 ---
 
-# 🔍 Análisis crítico de los resultados
+# Análisis crítico de los resultados
 
 La Regresión Lineal, aunque sencilla e interpretable, presenta un error elevado, lo que indica que la relación entre las variables predictoras y el precio no es estrictamente lineal. Esto limita su capacidad para capturar interacciones complejas entre características como el modelo, el tipo de combustible o la transmisión.
 
@@ -31,21 +30,21 @@ Por su parte, Gradient Boosting muestra un rendimiento muy competitivo y cercano
 
 ---
 
-# ✅ Justificación del modelo seleccionado
+# Justificación del modelo seleccionado
 
 Se seleccionó Random Forest Regressor como modelo final debido a:
 
-* 📉 Menor error medio absoluto (MAE), lo que implica predicciones más precisas en términos de precio.
-* 📈 Mayor valor de R², explicando aproximadamente el 91% de la variabilidad del precio.
-* 🔁 Mayor estabilidad y robustez frente al sobreajuste en comparación con modelos más simples.
-* 🧠 Capacidad para capturar relaciones no lineales y combinaciones complejas de variables.
-* ⚙️ Facilidad de integración en producción, ya que se comporta de forma consistente con datos no vistos.
+* Menor error medio absoluto (MAE), lo que implica predicciones más precisas en términos de precio.
+* Mayor valor de R², explicando aproximadamente el 91% de la variabilidad del precio.
+* Mayor estabilidad y robustez frente al sobreajuste en comparación con modelos más simples.
+* Capacidad para capturar relaciones no lineales y combinaciones complejas de variables.
+* Facilidad de integración en producción, ya que se comporta de forma consistente con datos no vistos.
 
 En consecuencia, el modelo Random Forest representa el mejor equilibrio entre precisión, robustez y facilidad de despliegue para el problema planteado.
 
 ---
 
-# 🚗 Predicción de precios de vehículos BMW
+# Predicción de precios de vehículos BMW
 
 Aplicación web desarrollada con Streamlit que permite predecir el precio de vehículos BMW a partir de sus características, utilizando un modelo de Machine Learning entrenado con datos históricos reales.
 
@@ -57,7 +56,7 @@ El proyecto cubre todo el flujo:
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
 prediccion-precios-web/
 │
