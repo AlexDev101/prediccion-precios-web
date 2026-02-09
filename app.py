@@ -215,11 +215,11 @@ if submit:
             "fuelType": fuel_type,
             "transmission": transmission,
             "engineSize": engine_size,
-            "km": valor_km, 
+            "mileageclear": valor_km, 
             "year": year
         }])
 
-        column_order = ["model", "fuelType", "transmission", "engineSize", "km", "year"]
+        column_order = ["model", "fuelType", "transmission", "engineSize", "mileage", "year"]
         input_df = input_df[column_order]
 
         prediction = model.predict(input_df)[0]
