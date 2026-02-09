@@ -215,7 +215,7 @@ if submit:
             "fuelType": fuel_type,
             "transmission": transmission,
             "engineSize": engine_size,
-            "mileageclear": valor_km, 
+            "mileage": valor_km, 
             "year": year
         }])
 
