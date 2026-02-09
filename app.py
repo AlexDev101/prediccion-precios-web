@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import joblib as joblib
 from pathlib import Path
 
 # Configuración de la página
