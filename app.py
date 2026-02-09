@@ -3,18 +3,14 @@ import pandas as pd
 import joblib
 from pathlib import Path
 
-# =============================
-# CONFIGURACIÓN DE LA PÁGINA
-# =============================
+# Configuración de la página
 st.set_page_config(
     page_title="Predicción de precios BMW",
     page_icon="🚗",
     layout="wide"
 )
 
-# =============================
-# CSS GLOBAL
-# =============================
+# CSS personalizado
 st.markdown("""
 <style>
 /* Sidebar más ancho */
@@ -69,9 +65,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# =============================
-# CARGA DE DATOS
-# =============================
+# Carga de datos y modelo
 DATA_PATH = Path("data/bmw.csv")
 
 @st.cache_data
@@ -80,9 +74,7 @@ def load_data():
 
 df = load_data()
 
-# =============================
-# MÉTRICAS DATASET
-# =============================
+# Métricas del dataset
 precio_min = df["price"].min()
 precio_max = df["price"].max()
 precio_medio = df["price"].mean()
@@ -91,9 +83,7 @@ anio_min = df["year"].min()
 anio_max = df["year"].max()
 fuel_mas_comun = df["fuelType"].value_counts().idxmax()
 
-# =============================
-# SIDEBAR BONITO
-# =============================
+# Sidebar
 with st.sidebar:
     st.markdown("## 📊 Información del dataset")
 
@@ -152,15 +142,11 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
 
-# =============================
-# TÍTULO PRINCIPAL
-# =============================
+# Titulo y descripción
 st.title("🚗 Predicción del precio de vehículos BMW")
 st.write("Introduce las características del vehículo para estimar su precio.")
 
-# =============================
-# CARGA DEL MODELO
-# =============================
+# Carga del modelo
 MODEL_PATH = Path("models/modelo_precio_bmw.pkl")
 
 @st.cache_resource
@@ -169,17 +155,14 @@ def load_model():
 
 model = load_model()
 
-# =============================
-# FORMULARIO
-# =============================
+# Formulario
 with st.form("car_form"):
     st.subheader("📋 Datos del vehículo")
 
-    # Kilometraje (ocupa todo)
-    mileage_miles = st.slider(
+    mileage = st.slider(
         "Kilometraje (millas)",
         min_value=0,
-        max_value=200000,
+        max_value=300000,
         step=1000
     )
 
@@ -189,92 +172,80 @@ with st.form("car_form"):
             "Año del vehículo",
             min_value=1995,
             max_value=2025,
+            value=2020, 
             step=1
         )
     with col2:
-        model_car = st.selectbox(
-            "Modelo",
-            ['1 Series', '2 Series', '3 Series', '4 Series', '5 Series',
-             '6 Series', '7 Series', 'X1', 'X2', 'X3', 'X4',
-             'X5', 'X6', 'X7', 'i3', 'i8']
+        engine_size = st.number_input(
+            "Tamaño del motor (ej: 2.0)",
+            min_value=0.0,
+            max_value=6.6,
+            value=2.0,
+            step=0.1
         )
 
     col3, col4 = st.columns(2)
     with col3:
+        model_car = st.selectbox(
+            "Modelo",
+            [' 1 Series', ' 2 Series', ' 3 Series', ' 4 Series', ' 5 Series',
+             ' 6 Series', ' 7 Series', ' X1', ' X2', ' X3', ' X4',
+             ' X5', ' X6', ' X7', ' i3', ' i8']
+        )
+    with col4:
         fuel_type = st.selectbox(
             "Tipo de combustible",
             ['Petrol', 'Diesel', 'Hybrid', 'Electric']
         )
-    with col4:
-        transmission = st.selectbox(
-            "Transmisión",
-            ['Manual', 'Automatic', 'Semi-Auto']
-        )
+
+    transmission = st.selectbox(
+        "Transmisión",
+        ['Manual', 'Automatic', 'Semi-Auto']
+    )
 
     submit = st.form_submit_button("🚀 Predecir precio")
 
-# =============================
-# PREDICCIÓN
-# =============================
+# Predicción y resultados
 if submit:
-    km = mileage_miles * 1.60934
+    try:
+        valor_km = mileage * 1.60934
 
-    input_df = pd.DataFrame([{
-        "model": model_car,
-        "fuelType": fuel_type,
-        "transmission": transmission,
-        "km": km,
-        "year": year
-    }])
+        input_df = pd.DataFrame([{
+            "model": model_car,
+            "fuelType": fuel_type,
+            "transmission": transmission,
+            "engineSize": engine_size,
+            "km": valor_km, 
+            "year": year
+        }])
 
-    prediction = model.predict(input_df)[0]
+        column_order = ["model", "fuelType", "transmission", "engineSize", "km", "year"]
+        input_df = input_df[column_order]
 
-    # =============================
-    # TARJETA PRECIO
-    # =============================
-    st.markdown(f"""
-    <div class="price-card">
-        <h2>💰 Precio estimado</h2>
-        <h1>{prediction:,.0f} €</h1>
-        <p>Estimación basada en Machine Learning</p>
-    </div>
-    """, unsafe_allow_html=True)
+        prediction = model.predict(input_df)[0]
 
-    # =============================
-    # MÉTRICAS DEL MODELO
-    # =============================
-    st.markdown("## 📊 Rendimiento del modelo")
-
-    # Métricas (valores ejemplo, usa los reales de tu entrenamiento)
-    mae = 2450
-    rmse = 3200
-    r2 = 0.87
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
+        # 4. Mostrar resultados
         st.markdown(f"""
-        <div class="card blue">
-            <h4>📉 MAE</h4>
-            <h2>{mae:,.0f} €</h2>
-            <p>Error medio absoluto</p>
+        <div class="price-card">
+            <h2>💰 Precio estimado</h2>
+            <h1>{prediction:,.0f} €</h1>
+            <p>Estimación basada en Machine Learning</p>
         </div>
         """, unsafe_allow_html=True)
 
-    with col2:
-        st.markdown(f"""
-        <div class="card orange">
-            <h4>📊 RMSE</h4>
-            <h2>{rmse:,.0f} €</h2>
-            <p>Penaliza errores grandes</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # 5. Mostrar méticras del modelo
+        st.markdown("## 📊 Rendimiento del modelo")
+        
+        # Valores de tu entrenamiento
+        mae, rmse, r2 = 2450, 3200, 0.87
+        col_m1, col_m2, col_m3 = st.columns(3)
 
-    with col3:
-        st.markdown(f"""
-        <div class="card green">
-            <h4>📈 R²</h4>
-            <h2>{r2:.2f}</h2>
-            <p>Capacidad explicativa</p>
-        </div>
-        """, unsafe_allow_html=True)
+        with col_m1:
+            st.markdown(f'<div class="card blue"><h4>📉 MAE</h4><h2>{mae:,.0f} €</h2><p>Error medio</p></div>', unsafe_allow_html=True)
+        with col_m2:
+            st.markdown(f'<div class="card orange"><h4>📊 RMSE</h4><h2>{rmse:,.0f} €</h2><p>Penaliza errores</p></div>', unsafe_allow_html=True)
+        with col_m3:
+            st.markdown(f'<div class="card green"><h4>📈 R²</h4><h2>{r2:.2f}</h2><p>Precisión</p></div>', unsafe_allow_html=True)
+
+    except Exception as e:
+        st.error(f"❌ Error al procesar la predicción: {e}")
